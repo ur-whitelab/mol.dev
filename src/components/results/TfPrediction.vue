@@ -1,12 +1,7 @@
 <template>
   <div class="tf-prediction">
-    <tf-result
-      title="sol"
-      description="Prediction of solubility"
-      v-bind:prediction="prediction"
-      v-bind:ready="prediction.finished"
-      :adjective="adjective"
-    />
+    <tf-result title="sol" description="Prediction of solubility" v-bind:prediction="prediction"
+      v-bind:ready="prediction.finished" :adjective="adjective" />
     <br />
     <model-card :url="this.url + '/card.json'"> </model-card>
   </div>
@@ -27,6 +22,7 @@ export default {
     sequence: String,
     url: String,
     adjective: String,
+    modelNumber: int,
     width: {
       type: Number,
       default: 300,
@@ -35,15 +31,18 @@ export default {
   data() {
     return {
       status: "loading",
-      rnn: null,
+      rnn: [],
     };
   },
   created: function () {
     this.debouncedPredict = _.debounce(this.predict, 1000);
   },
   mounted: function () {
-    this.rnn = getModel();
-    this.rnn.startLoad(this.url + "model.json");
+    for (let i = 0; i < this.modelNumber; i++) {
+      let m = getModel();
+      m.startLoad(this.url + "/sol-" + i + "/model.json");
+      this.rnn.push(m)
+    }
   },
   data: function () {
     return {

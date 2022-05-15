@@ -30,20 +30,16 @@
         <div class="columns">
           <div class="column card">
             <div class="card-content">
-              <h3 class="title is-size-4">Hemolytic Prediction</h3>
+              <h3 class="title is-size-4">Solubility Prediction</h3>
               <h4 class="subtitle is-size-6">
-                Predicted ability for peptide to lyse red blood cells
+                Predicted solubility in water
               </h4>
-              <tf-prediction url="https://raw.githubusercontent.com/ur-whitelab/exmol.io/master/models/hemo-rnn/"
-                :sequence="sequence" adjective="hemolytic" v-on:hemolytic-update="hemolytic = $event"></tf-prediction>
+              <tf-prediction url="https://raw.githubusercontent.com/ur-whitelab/exmol.io/master/models" modelNumber="4"
+                :sequence="sequence" adjective="soluble" v-on:soluble-update="soluble = $event"></tf-prediction>
               <div class="ref-footer">
-                <reference reflink="https://pubs.acs.org/doi/10.1021/acs.jcim.0c00946"
-                  reftitle="Investigating Active Learning and Meta-Learning for Iterative Peptide Design"
-                  journal="J. Chem. Inf. Model." year="2021"></reference>
-                <br />
-                <reference reflink="https://doi.org/10.1093/nar/gkaa991"
-                  reftitle="DBAASP v3: database of antimicrobial/cytotoxic activity and structure of peptides as a resource for development of new therapeutics"
-                  journal="Nucleic Acids Research" year="2020"></reference>
+                <reference reflink="https://www.nature.com/articles/s41597-019-0151-1"
+                  reftitle="AqSolDB, a curated reference set of aqueous solubility and 2D descriptors for a diverse set of compounds"
+                  journal="Sci. Data" year="2019"></reference>
               </div>
             </div>
           </div>
@@ -90,6 +86,7 @@ export default {
       selectedIndex: -1,
       version: pjson["version"],
       past: [],
+      resultsReady: false,
     };
   },
   computed: {
