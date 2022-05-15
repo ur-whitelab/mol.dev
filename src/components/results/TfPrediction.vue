@@ -22,7 +22,7 @@ export default {
     sequence: String,
     url: String,
     adjective: String,
-    modelNumber: int,
+    modelNumber: Number,
     width: {
       type: Number,
       default: 300,
