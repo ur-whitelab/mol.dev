@@ -2,18 +2,18 @@
 @import "npm:bulma/sass/utilities/initial-variables.sass";
 @import "npm:bulma/sass/utilities/functions.sass";
 //@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
 
-$family-sans: "IBM Plex Sans Condensed", sans-serif;
-$family-mono: 'Courier Prime', monospace;
+$family-sans: sans-serif;
+$family-mono: "Nanum Gothic Coding", monospace;
 // old paper background
 $body-background-color: #f4f0e8;
 
-$primary: #aacfc465;//#7DCFB6;
+$primary: #27d0c5; //#7DCFB6;
 // Use the existing orange as the danger color
 $danger: #b1332c;
-$warning: #FFE7CC ;
-$info: #416165;//#2D7AB9;
+$warning: #e5ec09;
+$info: #278cd0; //#2D7AB9;
 $family-primary: $family-mono;
 $shadow: "";
 $card-shadow: "";
