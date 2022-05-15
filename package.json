@@ -5,12 +5,12 @@
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "start": "parcel src/index.html",
-    "build": "parcel build src/index.html --no-cache --no-scope-hoist --public-url https://exmol.io"
+    "build": "parcel build src/index.html --no-cache --no-scope-hoist --public-url https://exmol.io/"
   },
   "author": "Andrew White",
   "license": "GNUv3",
   "dependencies": {
-    "@tensorflow/tfjs": "3.16.0",
+    "@tensorflow/tfjs": "^3.16.0",
     "bulma": "^0.9.3",
     "lodash": "^4.17.21",
     "parcel": "^2.5.0",
