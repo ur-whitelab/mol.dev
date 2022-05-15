@@ -1,0 +1,25 @@
+{
+  "name": "mol-dashboard",
+  "version": "0.0.1",
+  "description": "molecule dashboard",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --no-cache --no-scope-hoist --public-url https://exmol.io"
+  },
+  "author": "Andrew White",
+  "license": "GNUv3",
+  "dependencies": {
+    "@tensorflow/tfjs": "3.16.0",
+    "bulma": "^0.9.3",
+    "lodash": "^4.17.21",
+    "parcel": "^2.5.0",
+    "vue": "^3.2.20"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.5.0",
+    "@parcel/transformer-vue": "^2.5.0",
+    "eslint": "^8.2.0",
+    "eslint-plugin-vue": "^8.0.3"
+  }
+}
