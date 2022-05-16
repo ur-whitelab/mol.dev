@@ -37,19 +37,10 @@
               <tf-prediction url="https://raw.githubusercontent.com/ur-whitelab/exmol.io/master/models" :modelNumber="4"
                 :sequence="sequence" adjective="soluble" v-on:soluble-update="soluble = $event"></tf-prediction>
               <div class="ref-footer">
-                <reference reflink="https://www.nature.com/articles/s41597-019-0151-1"
+                Data: <reference reflink="https://www.nature.com/articles/s41597-019-0151-1"
                   reftitle="AqSolDB, a curated reference set of aqueous solubility and 2D descriptors for a diverse set of compounds"
                   journal="Sci. Data" year="2019"></reference>
               </div>
-            </div>
-          </div>
-          <div class="card column">
-            <div class="card-content">
-              <h3 class="title is-size-4">Solubility Model Fit</h3>
-              <h4 class="subtitle is-size-6">
-                Parity plot on test data in logS
-              </h4>
-              <img src="../../models/rnn-fit.png">
             </div>
           </div>
         </div>

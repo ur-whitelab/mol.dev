@@ -10,7 +10,7 @@
   "author": "Andrew White",
   "license": "GNUv3",
   "dependencies": {
-    "@tensorflow/tfjs": "^3.16.0",
+    "@tensorflow/tfjs": "^3.17.0",
     "buffer": "^6.0.3",
     "bulma": "^0.9.3",
     "lodash-es": "^4.17.21",

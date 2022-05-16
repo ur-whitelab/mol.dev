@@ -67,8 +67,8 @@ export default {
               mu: r.mu,
               var: r.var,
             };
-            this.predictions.pop();
-            this.predictions.unshift(new_p);
+            this.predictions.shift();
+            this.predictions.push(new_p);
           } else {
             return;
           }

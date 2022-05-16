@@ -1,12 +1,16 @@
 <template>
   <div class="model-card">
-    <div class="container has-text-justified">
+    <button @click="display = !display">details {{ display ? '🔽' : '▶️' }} </button>
+    <div v-if="display" class="container has-text-justified">
       <template v-for="item in details" :key="item.id">
         <p>
           <strong>{{ item.name }}</strong>
           {{ cardContent(item.id) }}
         </p>
       </template>
+      <div v-if="hasImage">
+        <img :src="image" alt="Image justifying model fit" />
+      </div>
     </div>
   </div>
 </template>
@@ -16,6 +20,7 @@
   flex-direction: row;
   flex-wrap: wrap;
 }
+
 .tabs li {
   width: 50%;
 }
@@ -33,6 +38,9 @@ export default {
   },
   data() {
     return {
+      display: false,
+      hasImage: false,
+      image: null,
       index: "title",
       card: null,
       title: "",
@@ -56,6 +64,10 @@ export default {
         this.card = out;
         this.title = this.card["title"];
         this.content = this.card[this.details[0].id];
+        if (this.card["image"]) {
+          this.hasImage = true;
+          this.image = this.card["image"];
+        }
       });
   },
   methods: {
