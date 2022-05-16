@@ -11,7 +11,8 @@
         <template v-for="p in predictions">
           <tr>
             <td class="has-text-left">{{ p.name }}</td>
-            <td class="has-text-right"><span v-if="ready">{{ p.mu.toFixed(2) }} ± {{ Math.sqrt(p.var).toFixed(2)
+            <td class="has-text-right"><span v-if="ready">{{ p.mu.toExponential(2) }} ± {{
+                Math.sqrt(p.var).toExponential(2)
             }}</span>&nbsp;
             </td>
           </tr>
