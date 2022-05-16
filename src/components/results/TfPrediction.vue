@@ -59,7 +59,6 @@ export default {
         const x = seq2vec(str);
         for (let i = 0; i < this.rnn.length; i++) {
           const yhat = await this.rnn[i].predict(x);
-          console.log(yhat);
           if (yhat) {
             const r = await parseResult(yhat);
             const new_p = {

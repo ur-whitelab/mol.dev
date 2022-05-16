@@ -26,7 +26,6 @@ onmessage = (e) => {
 }
 
 
-console.log('SELFIE WORKER: Started')
 importScripts('https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js')
 
 loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.18.1/full/" }).then((pyodide) => {
@@ -61,7 +60,6 @@ loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.18.1/full/" }).then
                     return null;
                 }
             };
-            console.log('Loaded selfies')
         });
     }, (err) => {
         selfiesMod.selfiesLoaded = 'failed';

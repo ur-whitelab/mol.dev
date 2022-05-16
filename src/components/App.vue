@@ -103,9 +103,7 @@ export default {
     };
   },
   mounted: function () {
-    console.log(this.$refs.inputcontainer);
     this.viewWidth = this.$refs.inputcontainer.clientWidth;
-    console.log(this.viewWidth);
   },
   computed: {
     screen() {

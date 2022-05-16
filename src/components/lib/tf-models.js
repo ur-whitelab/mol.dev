@@ -27,7 +27,6 @@ export async function parseResult(y) {
 }
 
 export function seq2vec(s) {
-    console.log(vocab_stoi);
     const result = Array()
     let in_token = false;
     let token = '';
@@ -44,7 +43,5 @@ export function seq2vec(s) {
             token += s[i];
     }
     const vec = tf.tensor(result, [1, result.length]);
-    console.log('sequence: ' + s);
-    console.log('vec: ' + vec);
     return vec;
 }
