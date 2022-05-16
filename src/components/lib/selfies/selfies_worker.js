@@ -2,7 +2,6 @@ importScripts('https://cdn.jsdelivr.net/pyodide/v0.20.0/full/pyodide.js');
 
 const selfiesVersion = 2.0;
 let pyodide = null;
-const bc = new BroadcastChannel('selfies_channel');
 // make fake function to start with
 const selfiesMod = {
     decoder: s => { return null },
@@ -10,6 +9,22 @@ const selfiesMod = {
     pyodideLoaded: 'loading',
     selfiesLoaded: 'loading'
 };
+
+onmessage = (e) => {
+    const data = e.data;
+    const mtype = data[0];
+    const mid = data[1];
+    let result = '';
+    if (mtype === 'loading-status') {
+        result = { pyodide: selfiesMod.pyodideLoaded, selfies: selfiesMod.selfiesLoaded };
+    } else if (mtype === 'encoder') {
+        result = selfiesMod.encoder(data[2]);
+    } else if (mtype === 'decoder') {
+        result = selfiesMod.decoder(data[2]);
+    }
+    postMessage([mtype, mid, result]);
+}
+
 
 console.log('SELFIE WORKER: Started')
 importScripts('https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js')
@@ -52,18 +67,3 @@ loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.18.1/full/" }).then
         selfiesMod.selfiesLoaded = 'failed';
     })
 });
-
-bc.onmessage = (e) => {
-    const data = e.data;
-    const mtype = data[0];
-    const mid = data[1];
-    let result = '';
-    if (mtype === 'loading-status') {
-        result = { pyodide: selfiesMod.pyodideLoaded, selfies: selfiesMod.selfiesLoaded };
-    } else if (mtype === 'encoder') {
-        result = selfiesMod.encoder(data[2]);
-    } else if (mtype === 'decoder') {
-        result = selfiesMod.decoder(data[2]);
-    }
-    bc.postMessage([mtype, mid, result]);
-}

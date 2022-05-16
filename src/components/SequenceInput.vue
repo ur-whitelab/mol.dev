@@ -63,7 +63,7 @@ export default {
       this.internalSequence = queryParam;
     }
     selfies.startSelfiesWorker();
-    setTimeout(this.checkSelfies, 500);
+    this.checkSelfies();
   },
   computed: {
     internalSMILES: {
@@ -112,14 +112,14 @@ export default {
     },
     checkSelfies: async function () {
       const s = await selfies.selfiesLoadStatus();
-
       if (s.selfies === 'loaded') {
         this.selfiesStatus = true;
       } else if (s.selfies === 'failed') {
         this.error = true;
+        throw new Error('Selfies failed to load');
       } else {
         this.loadingMessage += '.';
-        setTimeout(this.checkSelfies, 500);
+        setTimeout(this.checkSelfies, 100);
       }
     }
   },

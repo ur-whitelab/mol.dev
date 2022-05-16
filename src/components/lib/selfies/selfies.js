@@ -2,7 +2,6 @@ let selfieWorker = null;
 const resolvers = {};
 let id = 0;
 const MAX_ID = 2 ** 10
-const bc = new BroadcastChannel('selfies_channel');
 
 const startSelfiesWorker = () => {
     if (selfieWorker !== null)
@@ -11,7 +10,7 @@ const startSelfiesWorker = () => {
     ///const worker_url = new URL(file_dir + 'selfies_worker.js');
     const worker_url = new URL("./selfies_worker.js", import.meta.url);
     selfieWorker = new Worker(worker_url);
-    bc.onmessage = (e) => {
+    selfieWorker.onmessage = (e) => {
         const data = e.data;
         const mid = data[1];
         const result = data[2];
@@ -29,7 +28,7 @@ const selfiesLoadStatus = () => {
             }));
     }
     id = (id + 1) % MAX_ID;
-    bc.postMessage(['loading-status', id, null]);
+    selfieWorker.postMessage(['loading-status', id, null]);
     return new Promise(resolve => resolvers[id] = resolve);
 }
 
@@ -39,7 +38,7 @@ const decoder = (s) => {
             reject(new Error('Must call startSelfiesWorker() first')));
     }
     id = (id + 1) % MAX_ID;
-    bc.postMessage(['decoder', id, s]);
+    selfieWorker.postMessage(['decoder', id, s]);
     return new Promise(resolve => resolvers[id] = resolve);
 }
 
@@ -49,7 +48,7 @@ const encoder = (s) => {
             reject(new Error('Must call startSelfiesWorker() first')));
     }
     id = (id + 1) % MAX_ID;
-    bc.postMessage(['encoder', id, s]);
+    selfieWorker.postMessage(['encoder', id, s]);
     return new Promise(resolve => resolvers[id] = resolve);
 }
 

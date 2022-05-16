@@ -9,7 +9,7 @@
         </p>
       </template>
       <div v-if="hasImage">
-        <img :src="image" alt="Image justifying model fit" />
+        <img :src="image" alt="Image justifying model fit" width="500" />
       </div>
     </div>
   </div>
