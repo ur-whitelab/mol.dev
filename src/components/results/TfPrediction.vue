@@ -14,8 +14,7 @@
 import TfResult from "./TfResult";
 import { loadModel, seq2vec, parseResult } from "../lib/tf-models";
 import ModelCard from "./ModelCard.vue";
-import _ from "lodash";
-import { toRaw } from 'vue'
+import { debounce } from "lodash-es";
 export default {
   name: "TfPrediction",
   components: { TfResult, ModelCard },
@@ -38,7 +37,7 @@ export default {
     };
   },
   created: function () {
-    this.debouncedPredict = _.debounce(this.predict, 1000);
+    this.debouncedPredict = debounce(this.predict, 1000);
   },
   mounted: async function () {
     this.rnn = [];
