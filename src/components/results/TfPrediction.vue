@@ -34,7 +34,7 @@ export default {
       status: "loading",
       rnn: null,
       predictionReady: false,
-      predictions: Array(this.modelNumber + 1).fill({ name: '', mu: 0, var: 0 }),
+      predictions: Array(this.modelNumber + 1).fill({ name: '', mu: 0, var: 0, low: 0, high: 0 }),
     };
   },
   created: function () {
@@ -88,8 +88,8 @@ export default {
           - overall_p.mu * overall_p.mu;
         this.predictions.unshift(overall_p);
         this.predictions.map((p) => {
-          p.mu = Math.pow(10, p.mu);
-          p.var = Math.pow(10, p.var);
+          p.low = Math.pow(10, p.mu - Math.sqrt(p.var));
+          p.high = Math.pow(10, p.mu + Math.sqrt(p.var));
         });
         this.predictionReady = true;
       }

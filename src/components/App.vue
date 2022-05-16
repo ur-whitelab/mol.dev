@@ -43,6 +43,15 @@
               </div>
             </div>
           </div>
+          <div class="card column">
+            <div class="card-content">
+              <h3 class="title is-size-4">Model Fit</h3>
+              <h4 class="subtitle is-size-6">
+                Parity plot on test data in logS
+              </h4>
+              <img src="../../models/rnn-fit.png">
+            </div>
+          </div>
         </div>
       </div>
     </section>

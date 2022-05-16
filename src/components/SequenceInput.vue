@@ -31,7 +31,6 @@
           url + '?s=' + sequence
       }}</a>
     </p>
-    <br />
   </div>
 </template>
 

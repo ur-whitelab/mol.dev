@@ -6,13 +6,20 @@
       <tbody>
         <tr>
           <td class="has-text-left">Solubility</td>
-          <td class="has-text-right"> mol / l</td>
+          <td class="has-text-centered"> mol / l</td>
+          <td class="has-text-centered"> logS</td>
         </tr>
         <template v-for="p in predictions">
-          <tr>
+          <tr :class="{
+            'has-background-primary': p.name === 'Overall'
+          }">
             <td class="has-text-left">{{ p.name }}</td>
-            <td class="has-text-right"><span v-if="ready">{{ p.mu.toExponential(2) }} ± {{
-                Math.sqrt(p.var).toExponential(2)
+            <td class="has-text-centered"><span v-if="ready">{{ p.low.toExponential(2) }} to {{
+                p.high.toExponential(2)
+            }}</span>&nbsp;
+            </td>
+            <td class="has-text-centered"><span v-if="ready">{{ p.mu.toFixed(2) }} ± {{
+                Math.sqrt(p.var).toFixed(2)
             }}</span>&nbsp;
             </td>
           </tr>
