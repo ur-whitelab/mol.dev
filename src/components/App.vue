@@ -17,12 +17,12 @@
       <version :version="version"></version>
     </section>
     <section>
-      <div ref="sequencecontainer" class="container">
+      <div ref="inputcontainer" class="container">
         <div class="columns is-centered">
           <div class="column">
-            <sequence-input v-on:selfies-update="selfies = $event" v-on:smiles-update="smiles = $event"
+            <mol-input v-on:selfies-update="selfies = $event" v-on:smiles-update="smiles = $event"
               v-on:selfies-push="pushSelfies" :ready="resultsReady">
-            </sequence-input>
+            </mol-input>
           </div>
         </div>
       </div>
@@ -76,7 +76,7 @@
 
 <script>
 import Version from "./Version.vue";
-import SequenceInput from "./SequenceInput";
+import MolInput from "./MolInput";
 import TfPrediction from "./results/TfPrediction";
 import Reference from "./Reference";
 import pjson from "../../package.json";
@@ -86,7 +86,7 @@ export default {
   name: "App",
   components: {
     TfPrediction,
-    SequenceInput,
+    MolInput,
     Reference,
     Version,
     SmilesViewer
@@ -103,8 +103,8 @@ export default {
     };
   },
   mounted: function () {
-    console.log(this.$refs.sequencecontainer);
-    this.viewWidth = this.$refs.sequencecontainer.clientWidth;
+    console.log(this.$refs.inputcontainer);
+    this.viewWidth = this.$refs.inputcontainer.clientWidth;
     console.log(this.viewWidth);
   },
   computed: {

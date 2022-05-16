@@ -10,25 +10,25 @@
         }" spellcheck="false" autocorrect="off" type="text" :placeholder="selfiesStatus ? 'SMILES' : loadingMessage"
           v-model="internalSMILES" autofocus @keyup.enter="updateSMILES" />
       </div>
-      <div class="control">
-        <a class="button is-info" :class="{ 'is-loading': !ready && sequence.length > 0 }" @click="finishSequence">
-          Compute
+      <!-- <div class="control">
+        <a class="button is-info" :class="{ 'is-loading': !ready && selfies_str.length > 0 }" @click="finishMol">
+          Save
         </a>
-      </div>
+      </div> -->
     </div>
     <div class="field has-addons">
       <div class="control is-expanded" :class="{ 'is-loading': !selfiesStatus }">
         <input id="selfies-input" :readonly="selfiesStatus ? null : true" aria-label="SELFIES input" :class="{
           'input': true,
           'is-danger': parserError
-        }" spellcheck="false" autocorrect="off" type="text" :placeholder="selfiesStatus ? 'SMILES' : loadingMessage"
+        }" spellcheck="false" autocorrect="off" type="text" :placeholder="selfiesStatus ? 'SELFIES' : loadingMessage"
           v-model="internalSELFIES" autofocus @keyup.enter="updateSELFIES" />
       </div>
     </div>
-    <p id="seq-link" v-if="sequence.length > 0" class="help is-pulled-right">
+    <p id="seq-link" v-if="selfies_str.length > 0" class="help is-pulled-right">
       Shareable Link:
-      <a :href="url + '?s=' + sequence" target="_blank">{{
-          url + '?s=' + sequence
+      <a :href="url + '?s=' + selfies_str" target="_blank">{{
+          url + '?s=' + selfies_str
       }}</a>
     </p>
   </div>
@@ -43,13 +43,12 @@ export default {
   },
   data() {
     return {
-      sequence: "",
       smiles_str: "",
       selfies_str: "",
       loadingMessage: "Loading",
       edit_mode: "SMILES",
       view_mode: "SELFIES",
-      url: window.location.href,
+      url: window.location.href.split('?')[0],
       selfiesStatus: false,
       error: false,
       parserError: false
@@ -57,11 +56,6 @@ export default {
   },
   mounted: function () {
     // convert pattern to list of integers
-    const queryParam = new URLSearchParams(window.location.search).get("s");
-    if (queryParam) {
-      // clean it up
-      this.internalSequence = queryParam;
-    }
     selfies.startSelfiesWorker();
     this.checkSelfies();
   },
@@ -107,7 +101,7 @@ export default {
     },
   },
   methods: {
-    finishSequence: function () {
+    finishMol: function () {
       this.$emit("selfies-push");
     },
     discardKeys: function (evt) {
@@ -117,6 +111,11 @@ export default {
       const s = await selfies.selfiesLoadStatus();
       if (s.selfies === 'loaded') {
         this.selfiesStatus = true;
+        const queryParam = new URLSearchParams(window.location.search).get("s");
+        if (queryParam) {
+          // clean it up
+          this.internalSELFIES = queryParam;
+        }
       } else if (s.selfies === 'failed') {
         this.error = true;
         throw new Error('Selfies failed to load');
