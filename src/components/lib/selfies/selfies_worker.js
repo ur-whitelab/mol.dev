@@ -26,9 +26,7 @@ onmessage = (e) => {
 }
 
 
-importScripts('https://cdn.jsdelivr.net/pyodide/v0.18.1/full/pyodide.js')
-
-loadPyodide({ indexURL: "https://cdn.jsdelivr.net/pyodide/v0.18.1/full/" }).then((pyodide) => {
+loadPyodide().then((pyodide) => {
     selfiesMod.pyodideLoaded = 'loaded';
     pyodide.loadPackage('micropip').then(() => {
         pyodide.runPythonAsync(`
