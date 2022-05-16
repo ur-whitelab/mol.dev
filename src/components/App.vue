@@ -42,6 +42,14 @@
                 Data: <reference reflink="https://www.nature.com/articles/s41597-019-0151-1"
                   reftitle="AqSolDB, a curated reference set of aqueous solubility and 2D descriptors for a diverse set of compounds"
                   journal="Sci. Data" year="2019"></reference>
+                <br>
+                SELFIES: <reference reflink="https://arxiv.org/abs/2204.00056"
+                  reftitle="SELFIES and the future of molecular string representations" journal="arXiv" year="2022">
+                </reference>
+                <br>
+                Model uncertainty: <reference reflink="https://arxiv.org/abs/1612.01474"
+                  reftitle="Simple and scalable predictive uncertainty estimation using deep ensembles"
+                  journal="NeurIPS" year="2017"></reference>
               </div>
             </div>
           </div>
