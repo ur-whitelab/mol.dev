@@ -34,7 +34,7 @@
               <h4 class="subtitle is-size-6">
                 Predicted solubility in water
               </h4>
-              <tf-prediction url="https://raw.githubusercontent.com/ur-whitelab/exmol.io/master/models" modelNumber="4"
+              <tf-prediction url="https://raw.githubusercontent.com/ur-whitelab/exmol.io/master/models" :modelNumber="4"
                 :sequence="sequence" adjective="soluble" v-on:soluble-update="soluble = $event"></tf-prediction>
               <div class="ref-footer">
                 <reference reflink="https://www.nature.com/articles/s41597-019-0151-1"

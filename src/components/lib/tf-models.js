@@ -5,42 +5,46 @@ import '@tensorflow/tfjs-backend-cpu';
 import { vocab, vocab_stoi } from './vocab.json';
 
 
-export default function getModel() {
-    const rnn_mod = {
-        startLoad: (url) => {
-            const loader = loadLayersModel(url,
-                // not sure why, but seems to require this. It cannot
-                // determine which fetch to use otherwise
-                { fetchFunc: (path, rinit = RequestInit) => fetch(path, rinit) });
+export async function loadModel(url) {
+    const model = await loadLayersModel(url,
+        // not sure why, but seems to require this. It cannot
+        // determine which fetch to use otherwise
+        { fetchFunc: (path, rinit = RequestInit) => fetch(path, rinit) });
+    return model;
+};
 
-            loader.then((model) => {
-                rnn_mod.model = (t) => {
-                    const yhat = model.predict(t);
-                    return yhat
-                }
-                rnn_mod.model_loaded = 'loaded';
-                console.log('Loaded Model: ' + url)
-            }, (reason) => {
-                rnn_mod.model_loaded = 'failed';
-                console.log('Failed to load model!');
-                console.log(reason);
-            }).catch((reason) => {
-                console.log('Failed to load model!');
-                console.log(reason);
-            })
-        }
-    };
 
-    rnn_mod.model_loaded = 'not loading';
-
-    rnn_mod.seq2vec = (s) => {
-        const result = Array()
-        const vec = tf.tensor(Array.from(s).map((e, i) => {
-            if (e)
-                return parseInt(vocab_stoi[e]);
-        }));
-        return tf.reshape(vec, [1, -1]);
-    }
-    return rnn_mod
+export async function parseResult(y) {
+    const mus = tf.squeeze(y[0]);
+    const vars = tf.squeeze(y[1]);
+    const mu = await mus.array();
+    const my_var = await vars.array();
+    mus.dispose();
+    vars.dispose();
+    y[0].dispose();
+    y[1].dispose();
+    return { mu: mu, var: my_var };
 }
 
+export function seq2vec(s) {
+    console.log(vocab_stoi);
+    const result = Array()
+    let in_token = false;
+    let token = '';
+    for (let i = 0; i < s.length; i++) {
+        if (s[i] == '[')
+            in_token = true;
+        else if (s[i] == ']') {
+            in_token = false;
+            result.push(vocab_stoi['[' + token + ']']);
+            token = '';
+        } else if (s[i] == '.') {
+            result.push(vocab_stoi['.']);
+        } else if (in_token)
+            token += s[i];
+    }
+    const vec = tf.tensor(result, [1, result.length]);
+    console.log('sequence: ' + s);
+    console.log('vec: ' + vec);
+    return vec;
+}

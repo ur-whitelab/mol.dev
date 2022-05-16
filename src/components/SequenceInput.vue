@@ -7,9 +7,8 @@
         <input id="smiles-input" :readonly="selfiesStatus ? null : true" aria-label="SMILES input" :class="{
           'input': true,
           'is-danger': parserError
-        }" spellcheck="false" autocorrect="off" type="text"
-          :placeholder="selfiesStatus ? 'SMILES' : 'loading parser...'" v-model="internalSMILES" autofocus
-          @keyup.enter="updateSMILES" />
+        }" spellcheck="false" autocorrect="off" type="text" :placeholder="selfiesStatus ? 'SMILES' : loadingMessage"
+          v-model="internalSMILES" autofocus @keyup.enter="updateSMILES" />
       </div>
       <div class="control">
         <a class="button is-info" :class="{ 'is-loading': !ready && sequence.length > 0 }" @click="finishSequence">
@@ -22,9 +21,8 @@
         <input id="selfies-input" :readonly="selfiesStatus ? null : true" aria-label="SELFIES input" :class="{
           'input': true,
           'is-danger': parserError
-        }" spellcheck="false" autocorrect="off" type="text"
-          :placeholder="selfiesStatus ? 'SMILES' : 'loading parser...'" v-model="internalSELFIES" autofocus
-          @keyup.enter="updateSELFIES" />
+        }" spellcheck="false" autocorrect="off" type="text" :placeholder="selfiesStatus ? 'SMILES' : loadingMessage"
+          v-model="internalSELFIES" autofocus @keyup.enter="updateSELFIES" />
       </div>
     </div>
     <p id="seq-link" v-if="sequence.length > 0" class="help is-pulled-right">
@@ -49,6 +47,7 @@ export default {
       sequence: "",
       smiles_str: "",
       selfies_str: "",
+      loadingMessage: "Loading",
       edit_mode: "SMILES",
       view_mode: "SELFIES",
       url: window.location.href,
@@ -114,14 +113,13 @@ export default {
     },
     checkSelfies: async function () {
       const s = await selfies.selfiesLoadStatus();
-      console.log('CHECKING!!' + s.selfies);
 
       if (s.selfies === 'loaded') {
-        console.log('DONE!');
         this.selfiesStatus = true;
       } else if (s.selfies === 'failed') {
         this.error = true;
       } else {
+        this.loadingMessage += '.';
         setTimeout(this.checkSelfies, 500);
       }
     }

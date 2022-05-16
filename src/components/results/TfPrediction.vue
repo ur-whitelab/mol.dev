@@ -1,7 +1,7 @@
 <template>
   <div class="tf-prediction">
-    <tf-result title="sol" description="Prediction of solubility" v-bind:prediction="prediction"
-      v-bind:ready="prediction.finished" :adjective="adjective" />
+    <tf-result title="sol" description="Prediction of solubility" v-bind:predictions="predictions"
+      v-bind:ready="predictionReady" :adjective="adjective" />
     <br />
     <model-card :url="this.url + '/card.json'"> </model-card>
   </div>
@@ -12,9 +12,10 @@
 
 <script>
 import TfResult from "./TfResult";
-import getModel from "../lib/tf-models";
+import { loadModel, seq2vec, parseResult } from "../lib/tf-models";
 import ModelCard from "./ModelCard.vue";
 import _ from "lodash";
+import { toRaw } from 'vue'
 export default {
   name: "TfPrediction",
   components: { TfResult, ModelCard },
@@ -31,50 +32,66 @@ export default {
   data() {
     return {
       status: "loading",
-      rnn: [],
+      rnn: null,
+      predictionReady: false,
+      predictions: Array(this.modelNumber + 1).fill({ name: '', mu: 0, var: 0 }),
     };
   },
   created: function () {
     this.debouncedPredict = _.debounce(this.predict, 1000);
   },
-  mounted: function () {
+  mounted: async function () {
+    this.rnn = [];
     for (let i = 0; i < this.modelNumber; i++) {
-      let m = getModel();
-      m.startLoad(this.url + "/sol-" + i + "/model.json");
-      this.rnn.push(m)
+      const m = Object.freeze(await loadModel(this.url + "/" + i + "/model.json"));
+      this.rnn.push(m);
     }
-  },
-  data: function () {
-    return {
-      prediction: { score: null, predict: false, finished: false },
-    };
   },
   watch: {
     sequence: function (new_value) {
-      this.prediction.finished = false;
-      this.$emit(this.adjective + "-update", null);
+      this.predictionReady = false;
       this.debouncedPredict(new_value);
     },
   },
   methods: {
     predict: async function (str) {
-      this.status = this.rnn.model_loaded;
-      if (str.length >= 1 && this.status === "loaded") {
-        const x = this.rnn.seq2vec(str);
-        const yhat = await this.rnn.model(x).array();
-        if (yhat) {
-          this.prediction.score = yhat;
-          this.prediction.predict = yhat > 0.5;
-          this.prediction.finished = true;
-          this.$emit(
-            this.adjective + "-update",
-            parseFloat(yhat * 100).toFixed(0) + "%"
-          );
-        } else {
-          this.prediction.score = null;
-          this.prediction.predict = false;
-          this.prediction.finished = false;
+      if (str.length >= 1) {
+        this.predictions.shift();
+        const x = seq2vec(str);
+        for (let i = 0; i < this.rnn.length; i++) {
+          const yhat = await this.rnn[i].predict(x);
+          console.log(yhat);
+          if (yhat) {
+            const r = await parseResult(yhat);
+            const new_p = {
+              name: 'Model ' + (i + 1),
+              mu: r.mu,
+              var: r.var,
+            };
+            this.predictions.pop();
+            this.predictions.unshift(new_p);
+          } else {
+            return;
+          }
         }
+        x.dispose();
+        // now compute overall uncertainty/mean and convert units
+        const overall_p = {
+          name: 'Overall',
+          mu: 0,
+          var: 0,
+        };
+        overall_p.mu = this.predictions.reduce((a, b) => a + b.mu, 0) / this.modelNumber;
+        overall_p.var =
+          this.predictions.reduce(
+            (a, b) => a + b.var + b.mu * b.mu, 0) / this.modelNumber
+          - overall_p.mu * overall_p.mu;
+        this.predictions.unshift(overall_p);
+        this.predictions.map((p) => {
+          p.mu = Math.pow(10, p.mu);
+          p.var = Math.pow(10, p.var);
+        });
+        this.predictionReady = true;
       }
     },
   },
