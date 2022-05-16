@@ -1,6 +1,6 @@
 <template>
   <div class="model-card">
-    <button @click="display = !display">details {{ display ? '🔽' : '▶️' }} </button>
+    <button @click="display = !display">more info {{ display ? '🔽' : '▶️' }} </button>
     <div v-if="display" class="container has-text-justified">
       <template v-for="item in details" :key="item.id">
         <p>
