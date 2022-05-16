@@ -15,6 +15,7 @@
     "bulma": "^0.9.3",
     "lodash-es": "^4.17.21",
     "parcel": "^2.5.0",
+    "smiles-drawer": "^1.2.0",
     "vue": "^3.2.20"
   },
   "devDependencies": {

@@ -73,10 +73,12 @@ export default {
       set: function (v) {
         v = v.trim();
         this.smiles_str = v
+        this.$emit("smiles-update", this.smiles_str);
         selfies.encoder(v).then(res => {
           if (res) {
             this.selfies_str = res;
-            this.$emit("sequence-update", this.selfies_str);
+            this.$emit("smiles-update", this.smiles_str);
+            this.$emit("selfies-update", this.selfies_str);
             this.parserError = false;
           } else {
             this.parserError = true;
@@ -94,18 +96,19 @@ export default {
         selfies.decoder(v).then(res => {
           if (res) {
             this.smiles_str = res;
+            this.$emit("smiles-update", this.smiles_str);
+            this.$emit("selfies-update", this.selfies_str);
             this.parserError = false;
           } else {
             this.parserError = true;
           }
         });
-        this.$emit("sequence-update", this.selfies_str);
       },
     },
   },
   methods: {
     finishSequence: function () {
-      this.$emit("sequence-push");
+      this.$emit("selfies-push");
     },
     discardKeys: function (evt) {
       evt.preventDefault();

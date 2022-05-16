@@ -7,6 +7,8 @@
             <span class="title">mol dashboard</span><br />
             <span class="subtitle"> v{{ version }} </span>
           </div>
+          <smiles-viewer :smiles="smiles" :view-width="viewWidth" v-on:selection-update="selectedIndex = $event">
+          </smiles-viewer>
           <div class="container"></div>
         </div>
       </div>
@@ -15,11 +17,11 @@
       <version :version="version"></version>
     </section>
     <section>
-      <div class="container">
+      <div ref="sequencecontainer" class="container">
         <div class="columns is-centered">
-          <div ref="sequencecontainer" class="column">
-            <sequence-input v-on:sequence-update="sequence = $event" v-on:sequence-push="pushSequence"
-              :ready="resultsReady">
+          <div class="column">
+            <sequence-input v-on:selfies-update="selfies = $event" v-on:smiles-update="smiles = $event"
+              v-on:selfies-push="pushSelfies" :ready="resultsReady">
             </sequence-input>
           </div>
         </div>
@@ -35,7 +37,7 @@
                 Predicted solubility in water
               </h4>
               <tf-prediction url="https://raw.githubusercontent.com/ur-whitelab/exmol.io/master/models" :modelNumber="4"
-                :sequence="sequence" adjective="soluble" v-on:soluble-update="soluble = $event"></tf-prediction>
+                :sequence="selfies" adjective="soluble" v-on:soluble-update="soluble = $event"></tf-prediction>
               <div class="ref-footer">
                 Data: <reference reflink="https://www.nature.com/articles/s41597-019-0151-1"
                   reftitle="AqSolDB, a curated reference set of aqueous solubility and 2D descriptors for a diverse set of compounds"
@@ -70,6 +72,7 @@ import SequenceInput from "./SequenceInput";
 import TfPrediction from "./results/TfPrediction";
 import Reference from "./Reference";
 import pjson from "../../package.json";
+import SmilesViewer from "./SmilesViewer.vue";
 
 export default {
   name: "App",
@@ -78,10 +81,12 @@ export default {
     SequenceInput,
     Reference,
     Version,
+    SmilesViewer
   },
   data() {
     return {
-      sequence: "",
+      selfies: "",
+      smiles: "",
       viewWidth: 800,
       selectedIndex: -1,
       version: pjson["version"],
@@ -89,16 +94,21 @@ export default {
       resultsReady: false,
     };
   },
+  mounted: function () {
+    console.log(this.$refs.sequencecontainer);
+    this.viewWidth = this.$refs.sequencecontainer.clientWidth;
+    console.log(this.viewWidth);
+  },
   computed: {
     screen() {
       return screen;
     },
   },
   methods: {
-    pushSequence() {
+    pushSelfies() {
       if (this.resultsReady) {
         this.past.push({
-          sequence: this.sequence,
+          selfies: this.selfies,
         });
       }
     }
