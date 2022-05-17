@@ -1,6 +1,7 @@
 <template>
   <div>
-    <section class="hero is-primary is-bold" v-if="screen.width > 760">
+    <!-- <section class="hero is-primary is-bold" v-if="screen.width > 760"> -->
+    <section class="hero is-primary is-bold">
       <div class="hero-body" style="padding: 0px">
         <div class="container">
           <div class="floating-hero">
