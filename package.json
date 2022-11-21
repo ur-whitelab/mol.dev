@@ -1,6 +1,6 @@
 {
   "name": "mol-dashboard",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "molecule dashboard",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
