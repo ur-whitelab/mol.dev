@@ -40,6 +40,10 @@
               <tf-prediction url="https://raw.githubusercontent.com/ur-whitelab/exmol.io/master/models" :modelNumber="10"
                 :sequence="selfies" adjective="soluble" v-on:soluble-update="soluble = $event"></tf-prediction>
               <div class="ref-footer">
+                Model paper: <reference reflink="https://arxiv.org/abs/2307.05318"
+                  reftitle="Predicting small molecules solubilities on endpoint devices using deep ensemble neural networks"
+                  journal="ArXiv" year="2023"></reference>
+                <br>
                 Data: <reference reflink="https://www.nature.com/articles/s41597-019-0151-1"
                   reftitle="AqSolDB, a curated reference set of aqueous solubility and 2D descriptors for a diverse set of compounds"
                   journal="Sci. Data" year="2019"></reference>
@@ -68,6 +72,13 @@
             <p>
               &nbsp;&nbsp;&nbsp;&nbsp;<a href="https://thewhitelab.org">thewhitelab.org</a>
             </p>
+          </div>
+          <div class="block column">
+              <p>
+                Please, cite our work: <reference reflink="https://arxiv.org/abs/2307.05318"
+                  reftitle="Predicting small molecules solubilities on endpoint devices using deep ensemble neural networks"
+                  journal="ArXiv" year="2023"></reference>
+              </p>
           </div>
         </div>
       </div>

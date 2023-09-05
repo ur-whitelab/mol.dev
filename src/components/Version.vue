@@ -14,12 +14,18 @@
         and watch the
         <a href="https://github.com/ur-whitelab/exmol.io">github repo</a>
         to stay updated on new versions.
+        <br>
+        Check our paper for more details: <reference reflink="https://arxiv.org/abs/2307.05318"
+                  reftitle="Predicting small molecules solubilities on endpoint devices using deep ensemble neural networks"
+                  journal="ArXiv" year="2023"></reference>
       </div>
     </article>
   </div>
 </template>
 
 <script>
+import Reference from "./Reference";
+
 export default {
   name: "Version",
   props: {
@@ -29,6 +35,9 @@ export default {
     return {
       show: true,
     };
+  },
+    components: {
+    Reference
   },
 };
 </script>
