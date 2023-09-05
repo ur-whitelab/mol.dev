@@ -50,3 +50,19 @@ The button "Expand ▶️" can be used to get information about the prediction o
 # Important Note
 
 Please, note that this is an ongoing research. The results showed here are results of models that are still being developed and improved.
+
+# Citation
+
+Please, cite [Ramos et al.](https://arxiv.org/abs/2307.05318):
+```
+@misc{ramos2023solubility,
+  doi = {10.48550/ARXIV.2307.05318},
+  url = {https://arxiv.org/abs/2307.05318},
+  author = {Ramos,  Mayk Caldas and White,  Andrew D.},
+  keywords = {Chemical Physics (physics.chem-ph),  Machine Learning (cs.LG),  FOS: Physical sciences,  FOS: Physical sciences,  FOS: Computer and information sciences,  FOS: Computer and information sciences},
+  title = {Predicting small molecules solubilities on endpoint devices using deep ensemble neural networks},
+  publisher = {arXiv},
+  year = {2023},
+  copyright = {Creative Commons Attribution 4.0 International}
+}
+```
