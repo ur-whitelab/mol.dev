@@ -15,9 +15,6 @@
       </div>
     </section>
     <section>
-      <version :version="version"></version>
-    </section>
-    <section>
       <div ref="inputcontainer" class="container">
         <div class="columns is-centered">
           <div class="column">
@@ -75,9 +72,9 @@
           </div>
           <div class="block column">
               <p>
-                Please, cite our work: <reference reflink="https://arxiv.org/abs/2307.05318"
+                Please, cite our work: <reference reflink="https://pubs.rsc.org/en/content/articlelanding/2024/dd/d3dd00217a"
                   reftitle="Predicting small molecules solubilities on endpoint devices using deep ensemble neural networks"
-                  journal="ArXiv" year="2023"></reference>
+                  journal="Digital Discovery" year="2024"></reference>
               </p>
           </div>
         </div>
@@ -87,7 +84,6 @@
 </template>
 
 <script>
-import Version from "./Version.vue";
 import MolInput from "./MolInput";
 import TfPrediction from "./results/TfPrediction";
 import Reference from "./Reference";
@@ -100,7 +96,6 @@ export default {
     TfPrediction,
     MolInput,
     Reference,
-    Version,
     SmilesViewer
   },
   data() {
