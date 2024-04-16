@@ -47,22 +47,19 @@ The button "Expand ▶️" can be used to get information about the prediction o
   <img style="width: 50%;" src="https://github.com/ur-whitelab/mol.dev/blob/main/models/rnn-fit.png?raw=true" alt="Mol.dev implemented model parity plot with metrics">
 </p>
 
-# Important Note
-
-Please, note that this is an ongoing research. The results showed here are results of models that are still being developed and improved.
-
 # Citation
 
-Please, cite [Ramos et al.](https://arxiv.org/abs/2307.05318):
+Please, cite [Ramos et al.](https://pubs.rsc.org/en/content/articlelanding/2024/dd/d3dd00217a):
 ```
-@misc{ramos2023solubility,
-  doi = {10.48550/ARXIV.2307.05318},
-  url = {https://arxiv.org/abs/2307.05318},
-  author = {Ramos,  Mayk Caldas and White,  Andrew D.},
-  keywords = {Chemical Physics (physics.chem-ph),  Machine Learning (cs.LG),  FOS: Physical sciences,  FOS: Physical sciences,  FOS: Computer and information sciences,  FOS: Computer and information sciences},
-  title = {Predicting small molecules solubilities on endpoint devices using deep ensemble neural networks},
-  publisher = {arXiv},
-  year = {2023},
-  copyright = {Creative Commons Attribution 4.0 International}
+@Article{ramos2023solubility,
+author ="Ramos, Mayk Caldas and White, Andrew D.",
+title  ="Predicting small molecules solubility on endpoint devices using deep ensemble neural networks",
+journal  ="Digital Discovery",
+year  ="2024",
+pages  ="-",
+publisher  ="RSC",
+doi  ="10.1039/D3DD00217A",
+url  ="http://dx.doi.org/10.1039/D3DD00217A",
 }
+
 ```
