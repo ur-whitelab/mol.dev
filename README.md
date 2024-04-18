@@ -38,7 +38,7 @@ The button "Expand ▶️" can be used to get information about the prediction o
 - **Model Details**: Solubility predictor with uncertainty. Model is a bidirectional LSTM that predict standard deviation and mean. An ensemble of 10 is combined for predictions. Epistemic uncertainty comes from model disagreement.
 - **Intended**: Use Organic molecules
 - **Factors**: Model may not generalize to large molecules, very insoluble (< -12.5 logS), and highly soluble (> 1 logS), ions, or metals.
-- **Metrics**: Test correlation 0.76. Test MAE 1.37
+- **Metrics**: Test correlation 0.79. Test MAE 1.24
 - **Evaluation**: Data Withheld examples (test data)
 - **Training Data**: 9982 molecules, which was augmented to 96625 molecules.
 - **Ethical Considerations**: None noted
